@@ -6,6 +6,11 @@
  * 
  * */
 
+// Import da biblioteca do prima client
+const { PrismaClient } = require('@prisma/client')
+
+// Instanciando a classe do prisma client
+const prisma = new PrismaClient()
 
 // Function para inserir um filme no banco de dados
 const insertFilme = async function(){
@@ -28,6 +33,15 @@ const deleteFilme = async function(){
 // Function para selecionar todos os filmes do banco de dados
 const selectAllFilmes = async function(){
 
+    let sql = 'SELECT * FROM tbl_filme'
+    let rsFilmes = await prisma.$queryRawUnsafe(sql)
+
+    if(rsFilmes.length > 0){
+        return rsFilmes
+    } else {
+        return false
+    }
+    
 }
 
 
