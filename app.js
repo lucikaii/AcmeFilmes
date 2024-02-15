@@ -44,3 +44,5 @@ app.get('/v1/acmefilmes/filmes', cors(), async function(request, response, next)
 app.listen(8080, function(){
     console.log('API está funcionando, aguarde um segundinho...')
 })
+
+//npx prisma migrate dev
