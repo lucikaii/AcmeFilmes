@@ -1,0 +1,22 @@
+CREATE SCHEMA db_acme_filmes_turma_aa;
+USE db_acme_filmes_turma_aa;
+
+CREATE TABLE tbl_filme(
+
+id int not null auto_increment primary key,
+nome varchar (80) not null,
+sinopse text not null,
+duracao time not null,
+data_lancamento date not null,
+data_relancamento date,
+foto_capa varchar (300) not null,
+valor_unitario float,
+
+unique key (id),
+unique index (id)
+);
+
+INSERT INTO tbl_filme (nome, sinopse, duracao, data_lancamento, data_relancamento, foto_capa, valor_unitario) VALUES
+("TITANIC", "Um artista pobre e uma jovem rica se conhecem e se apaixonam na fatídica viagem inaugural do Titanic em 1912. Embora esteja noiva do arrogante herdeiro de uma siderúrgica, a jovem desafia sua família e amigos em busca do verdadeiro amor.", "03:30:00", "1998-01-16", "2012-04-13", "https://play.google.com/store/movies/details/Titanic_Dublado?id=bL9r5iv5oeY&hl=pt_BR&gl=US", '24.90'),
+("On Your Wedding Day", "Hwang Woo-yeon recebe um convite para o casamento de Hwan Seung-hee, seu primeiro amor. Nesse momento, ele começa a relembrar momentos bons e ruins da dupla que os transformaram no que são hoje.", "01:50:00", "2018-08-22", null, "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p15889119_v_v9_ae.jpg", '25.80'),
+("Vermelho Branco e Sangue Azul", "Alex, o filho da presidenta dos Estados Unidos, se envolve em uma confusão com o príncipe britânico Henry, o que gera uma crise internacional de imagem. Os dois são grandes rivais, mas fingem que são amigos pelo bem de seus países. Porém, essa relação fria começa a derreter e dá lugar a um sentimento intenso e novo para os dois.", "01:58:00", "2023-07-22", null, "https://static.wikia.nocookie.net/vozesportuguesas/images/4/4f/VermelhoBrancoeSangueAzul.jpg/revision/latest/thumbnail/width/360/height/360?cb=20230811074325&path-prefix=pt", '24.00');

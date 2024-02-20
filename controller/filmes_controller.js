@@ -7,6 +7,7 @@
  * */
 
 const filmesDAO = require('../model/DAO/filmes.js')
+const config = require('../modulo/config.js')
 
 // Function para inserir um novo Filme
 const setInserirNovoFilme = async function(){
@@ -34,6 +35,7 @@ const getListarFilmes = async function(){
     let dadosFilmes = await filmesDAO.selectAllFilmes()
 
     if(dadosFilmes){
+        
         jsonFilmes.filmes = dadosFilmes
         jsonFilmes.quantidade = dadosFilmes.length
         jsonFilmes.status_code = 200
@@ -45,8 +47,34 @@ const getListarFilmes = async function(){
 
 
 // Function para retornar o filtro de um filme pelo id
-const getBuscarFilme = async function(){
+const getBuscarFilme = async function(id){
 
+    let idFilme = id
+    let filmeJson = {}
+
+    if(idFilme == ''|| idFilme == undefined || isNaN(idFilme)){
+        return config.ERROR_INVALID_ID 
+    } else {
+
+        let dadosFilme = await filmesDAO.selectByIdFilmes(idFilme)
+
+        if(dadosFilme){
+
+            if(dadosFilme.length > 0){
+
+                filmeJson.filme = dadosFilme
+                filmeJson.status_code = 200
+
+                return filmeJson
+            } else{
+                 
+                return config.ERROR_NOT_FOUND
+            }
+            
+        } else{
+            return config.ERROR_INTERNAL_SERVER_DB
+        }
+    }
 }
 
 
