@@ -52,6 +52,15 @@ app.get('/v1/acmefilmes/filme/:id', cors(), async function(request, response, ne
 
 })
 
+app.get('/v1/acmefilmes/filtro/filme', cors(), async function(request, response, next){
+
+    let nomeFilme = request.query.nome 
+    let dadosFilmeNome = await filmesController.getBuscarFilmePorNome(nomeFilme)
+
+    response.status(dadosFilmeNome.status_code)
+    response.json(dadosFilmeNome)
+})
+
 app.listen(5080, function(){
     console.log('API está funcionando, aguarde um segundinho...')
 })

@@ -10,11 +10,13 @@
 const ERROR_INVALID_ID = {status: false, status_code: 400, message: 'ID Inválido'}
 const ERROR_NOT_FOUND = {status: false, status_code: 404, message: 'Nenhum item encontrado'}
 const ERROR_INTERNAL_SERVER_DB = {status: false, status_code: 500, message: 'Erro no Banco de Dados, Entre em contato com o administrador'}
+const ERROR_INVALID_NAME = {status: false, status_code: 400, message: 'Nome Inválido'}
 
 
 
 module.exports ={
     ERROR_INVALID_ID,
     ERROR_NOT_FOUND,
-    ERROR_INTERNAL_SERVER_DB
+    ERROR_INTERNAL_SERVER_DB,
+    ERROR_INVALID_NAME
 }
