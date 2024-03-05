@@ -10,8 +10,51 @@ const filmesDAO = require('../model/DAO/filmes.js')
 const config = require('../modulo/config.js')
 
 // Function para inserir um novo Filme
-const setInserirNovoFilme = async function(){
+const setInserirNovoFilme = async function(dadosFilme){
 
+    let statusValidate = false
+    let jsonNovoFilme = {}
+
+    if(dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome == null || dadosFilme.length > 80 ||
+       dadosFilme.sinopse == '' || dadosFilme.sinopse == undefined || dadosFilme.sinopse == null || dadosFilme.sinopse.length > 65000 ||
+       dadosFilme.duracao == '' || dadosFilme.duracao == undefined || dadosFilme.duracao == null || dadosFilme.duracao.length > 8 ||
+       dadosFilme.data_lancamento == '' || dadosFilme.data_lancamento == undefined || dadosFilme.data_lancamento == null || dadosFilme.data_lancamento.length != 10 ||
+       dadosFilme.foto_capa == '' || dadosFilme.foto_capa == undefined || dadosFilme.foto_capa == null || dadosFilme.foto_capa.length > 300 ||
+       dadosFilme.valor_unitario.length > 8 || isNaN(dadosFilme.valor_unitario)
+       ){
+
+        return config.ERROR_REQUIRED_FIELDS
+       } else{
+
+        if(dadosFilme.data_relancamento != '' && dadosFilme.data_relancamento != null && dadosFilme.data_relancamento != undefined){
+
+            if(dadosFilme.data_relancamento.length != 10){
+                return config.ERROR_REQUIRED_FIELDS
+            } else{
+
+                statusValidate = true
+            }
+        } else {
+             statusValidate = true
+        }
+       }
+
+       if(statusValidate = true){
+
+        let novoFilme = await filmesDAO.insertFilme(dadosFilme)
+
+        if(novoFilme){
+
+            jsonNovoFilme.status = config.SUCESS_CREATED_ITEM.status
+            jsonNovoFilme.status_code = config.SUCESS_CREATED_ITEM.status_code
+            jsonNovoFilme.message = config.SUCESS_CREATED_ITEM.message
+            jsonNovoFilme.filme = dadosFilme
+            return jsonNovoFilme
+        } else {
+
+            return config.ERROR_INTERNAL_SERVER_DB
+        }
+       }
 }
 
 
@@ -119,3 +162,5 @@ module.exports = {
     getBuscarFilme,
     getBuscarFilmePorNome
 }
+
+

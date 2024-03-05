@@ -12,6 +12,7 @@ const filmesController = require('./controller/filmes_controller.js')
 const express = require('express')
 const cors = require('cors')
 const bodyparser = require('body-parser')
+const bodyParser = require('body-parser')
 
 
 
@@ -20,12 +21,14 @@ const app = express()
 app.use((request, response, next) => {
 
     response.header('Access-Control-Allow-Origin', '*')
-    response.header('Access-Control-Allow-Methods', 'GET')
+    response.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
 
     app.use(cors())
     
     next()
 })
+
+const jsonBodyParser = bodyParser.json()
 
 // Retorna os dados do banco de dados
 app.get('/v1/acmefilmes/filmes', cors(), async function(request, response, next){
@@ -61,7 +64,16 @@ app.get('/v1/acmefilmes/filtro/filme', cors(), async function(request, response,
     response.json(dadosFilmeNome)
 })
 
-app.listen(5080, function(){
+app.post('/v2/acmefilmes/filme', cors(), jsonBodyParser, async function(request, response, next){
+
+    let dadosBody = request.body
+    let resultDados = await filmesController.setInserirNovoFilme(dadosBody)
+
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+} )
+
+app.listen(8080, function(){
     console.log('API está funcionando, aguarde um segundinho...')
 })
 
