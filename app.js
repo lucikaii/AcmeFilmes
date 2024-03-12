@@ -66,8 +66,9 @@ app.get('/v1/acmefilmes/filtro/filme', cors(), async function(request, response,
 
 app.post('/v2/acmefilmes/filme', cors(), jsonBodyParser, async function(request, response, next){
 
+    let contentType = request.headers['content-type']
     let dadosBody = request.body
-    let resultDados = await filmesController.setInserirNovoFilme(dadosBody)
+    let resultDados = await filmesController.setInserirNovoFilme(dadosBody, contentType)
 
     response.status(resultDados.status_code)
     response.json(resultDados)

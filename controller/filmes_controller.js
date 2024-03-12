@@ -10,9 +10,13 @@ const filmesDAO = require('../model/DAO/filmes.js')
 const config = require('../modulo/config.js')
 
 // Function para inserir um novo Filme
-const setInserirNovoFilme = async function(dadosFilme){
+const setInserirNovoFilme = async function(dadosFilme, contentType){
 
-    let statusValidate = false
+    try {
+
+    if (String(contentType).toLowerCase() == 'application/json'){
+
+        let statusValidate = false
     let jsonNovoFilme = {}
 
     if(dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome == null || dadosFilme.length > 80 ||
@@ -49,12 +53,22 @@ const setInserirNovoFilme = async function(dadosFilme){
             jsonNovoFilme.status_code = config.SUCESS_CREATED_ITEM.status_code
             jsonNovoFilme.message = config.SUCESS_CREATED_ITEM.message
             jsonNovoFilme.filme = dadosFilme
+            jsonNovoFilme.id = dadosFilme.id
             return jsonNovoFilme
         } else {
 
             return config.ERROR_INTERNAL_SERVER_DB
         }
        }
+
+    } else {
+        return config.ERROR_CONTENT_TYPE
+    }
+    
+        
+    } catch (error) {
+        return config.ERROR_INTERNAL_SERVERqq
+    }
 }
 
 
@@ -78,13 +92,18 @@ const getListarFilmes = async function(){
     let dadosFilmes = await filmesDAO.selectAllFilmes()
 
     if(dadosFilmes){
-        
-        jsonFilmes.filmes = dadosFilmes
-        jsonFilmes.quantidade = dadosFilmes.length
-        jsonFilmes.status_code = 200
-        return jsonFilmes
+
+        if(dadosFilmes.length > 0){
+
+            jsonFilmes.filmes = dadosFilmes
+            jsonFilmes.quantidade = dadosFilmes.length
+            jsonFilmes.status_code = 200
+            return jsonFilmes
+        } else {
+            return config.ERROR_NOT_FOUND
+        }
     } else{
-        return false
+        return config.ERROR_INTERNAL_SERVER_DB
     }
 }
 

@@ -12,6 +12,8 @@ const ERROR_NOT_FOUND = {status: false, status_code: 404, message: 'Nenhum item 
 const ERROR_INTERNAL_SERVER_DB = {status: false, status_code: 500, message: 'Erro no Banco de Dados, Entre em contato com o administrador'}
 const ERROR_INVALID_NAME = {status: false, status_code: 400, message: 'Nome Inválido'}
 const ERROR_REQUIRED_FIELDS = {status: false, status_code: 400, message: 'LARGA DE SER TROUXA E FAZ DIREITO'}
+const ERROR_CONTENT_TYPE = {status: false, status_code: 415, message: 'A nossa API só suporta JSON, querido '}
+const ERROR_INTERNAL_SERVER = {status: false, status_code: 500, message: 'Aconteceu um problemão na camada de serviços do back-end, corra para as montanhas busque por socorro (algum profissional)'}
 
                                                             /** MENSAGEM DE SUCESSO */
 
@@ -25,5 +27,7 @@ module.exports ={
     ERROR_INTERNAL_SERVER_DB,
     ERROR_INVALID_NAME,
     ERROR_REQUIRED_FIELDS,
-    SUCESS_CREATED_ITEM
+    SUCESS_CREATED_ITEM,
+    ERROR_CONTENT_TYPE,
+    ERROR_INTERNAL_SERVER
 }

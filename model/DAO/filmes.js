@@ -18,6 +18,7 @@ const insertFilme = async function(dadosFilme){
     try {
 
     let sql 
+    let idSQL 
 
     if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == undefined || dadosFilme.data_relancamento == ''){
 
@@ -30,7 +31,10 @@ const insertFilme = async function(dadosFilme){
                   null,
                  '${dadosFilme.foto_capa}',
                  '${dadosFilme.valor_unitario}'
-               )`
+               )
+               `
+
+               idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_filme ORDER BY id DESC LIMIT 1`
 
     } else{
 
@@ -45,11 +49,14 @@ const insertFilme = async function(dadosFilme){
                  '${dadosFilme.valor_unitario}
                )`
 
+               idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_filme ORDER BY id DESC LIMIT 1`
+
     }
     
     let result = await prisma.$executeRawUnsafe(sql)
+    let idResult = await prisma.$queryRawUnsafe(idSQL)
 
-    if(result){
+    if(result && idResult){
         return true;
     } else {
         return false;
