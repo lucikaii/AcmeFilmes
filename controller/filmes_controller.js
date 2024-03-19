@@ -67,7 +67,7 @@ const setInserirNovoFilme = async function(dadosFilme, contentType){
     
         
     } catch (error) {
-        return config.ERROR_INTERNAL_SERVERqq
+        return config.ERROR_INTERNAL_SERVER
     }
 }
 
@@ -77,10 +77,24 @@ const setAtualizarFilme = async function(){
 
 }
 
-
 // Function para excluir um filme
-const setExcluirFilme = async function(){
+const setExcluirFilme = async function(id){
 
+    let idFilme = id
+    let ids = filmesDAO.selectAllFilmes()
+
+    try {
+          
+        if(idFilme == "" || idFilme == undefined || isNaN(idFilme) || idFilme == null){
+            return config.ERROR_REQUIRED_FIELDS
+        } else {
+
+            let dadosFilme = await filmesDAO.deleteFilme(idFilme)
+        }
+
+    } catch (error) {
+        return config.ERROR_INTERNAL_SERVER
+    }
 }
 
 

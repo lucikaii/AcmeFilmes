@@ -42,7 +42,7 @@ const insertFilme = async function(dadosFilme){
                (
                 '${dadosFilme.nome}',
                 '${dadosFilme.sinopse}',
-                 ${dadosFilme.duracao},
+                 '${dadosFilme.duracao}',
                  '${dadosFilme.data_lancamento}',
                  '${dadosFilme.data_relancamento}',
                  '${dadosFilme.foto_capa}',
@@ -57,9 +57,9 @@ const insertFilme = async function(dadosFilme){
     let idResult = await prisma.$queryRawUnsafe(idSQL)
 
     if(result && idResult){
-        return true;
+        return result, idResult
     } else {
-        return false;
+        return false
     }
         
     } catch (error) {
@@ -77,8 +77,20 @@ const updateFilme = async function(){
 
 
 // Function para deletar um filme do banco de dados
-const deleteFilme = async function(){
+const deleteFilme = async function(id){
 
+    let idFilme = id
+
+    try {
+
+        let sql = `DELETE FROM tbl_filme WHERE id = ${idFilme}`
+
+        let rsFilme = await prisma.$queryRawUnsafe(sql)
+        return rsFilme
+
+    } catch (error) {
+        return false
+    }
 }
 
 
