@@ -5,6 +5,7 @@
 
 /********************************** IMPORT DOS ARQUIVOS INTERNOS DO PROJETO ****************************************************** */
 const filmesController = require('./controller/filmes_controller.js')
+const usuariosController = require('./controller/usuarios_controller.js')
 
 /********************************************************************************************************************************* */
 
@@ -30,7 +31,7 @@ app.use((request, response, next) => {
 
 const jsonBodyParser = bodyParser.json()
 
-// Retorna os dados do banco de dados
+// RETORNO DOS DADOS DOS FILMES
 app.get('/v1/acmefilmes/filmes', cors(), async function(request, response, next){
 
     let dadosFilmes = await filmesController.getListarFilmes()
@@ -83,6 +84,22 @@ app.delete('/v2/acmefilmes/filme/:id', cors(), async function(request, response,
     response.status(200)
     response.json(dadosFilme)
 })
+
+// RETORNO DOS DADOS DOS USUARIOS
+app.get('/v2/acmefilmes/usuarios', cors(), async function(request, response, next){
+
+    let dadosUsuarios = await usuariosController.getListarUsuarios()
+
+    if(dadosUsuarios){
+        response.json(dadosUsuarios)
+        response.status = 200
+    } else{
+        response.json({message: 'Nada Encontrado'})
+        response.status(404)
+    }
+})
+
+
 
 app.listen(8080, function(){
     console.log('API está funcionando, aguarde um segundinho...')
