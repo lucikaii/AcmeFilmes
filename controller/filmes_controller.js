@@ -125,10 +125,11 @@ const getListarFilmes = async function(){
 // Function para retornar o filtro de um filme pelo id
 const getBuscarFilme = async function(id){
 
-    let idFilme = id
+    let idFilme = parseInt(id)
     let filmeJson = {}
 
     if(idFilme == ''|| idFilme == undefined || isNaN(idFilme)){
+
         return config.ERROR_INVALID_ID 
     } else {
 

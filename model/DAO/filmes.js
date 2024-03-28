@@ -113,17 +113,17 @@ const selectAllFilmes = async function(){
 
 
 // Functions para filtrar um filme do banco de dados
-const selectByIdFilmes = async function(id){
+const selectByIdFilmes = async function(id){    
     
     try {
         
         let sql = `SELECT * FROM tbl_filme WHERE id = ${id}`
         let rsFilme = await prisma.$queryRawUnsafe(sql)
 
+
         return rsFilme
 
     } catch (error) {
-        
         return false
     }
 
@@ -152,5 +152,6 @@ module.exports = {
     updateFilme,
     deleteFilme,
     selectAllFilmes,
-    selectByNameFilmes
+    selectByNameFilmes,
+    selectByIdFilmes
 }
