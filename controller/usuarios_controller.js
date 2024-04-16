@@ -70,6 +70,11 @@ const setExcluirUsuario = async function(id){
 }
 
 
+// POST DE USUARIOS
+
+
+// PUT DE USUARIOS
+
 
 module.exports = {
     getListarUsuarios,
