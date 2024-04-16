@@ -99,6 +99,16 @@ app.get('/v2/acmefilmes/usuarios', cors(), async function(request, response, nex
     }
 })
 
+app.get('/v2/acmefilmes/usuario/:id', cors(), async function (resquest, response, next){
+
+    let idUsuario = resquest.params.id
+
+    let dadosUsuario = await usuariosController.getBuscarUsuario(idUsuario)
+
+    response.status(dadosUsuario.status_code)
+    response.json(dadosUsuario)
+})
+
 
 
 app.listen(8080, function(){

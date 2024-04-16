@@ -3,6 +3,8 @@ const { PrismaClient } = require('@prisma/client')
 
 const prisma = new PrismaClient()
 
+
+// GET DE USUÁRIOS
 const selectAllUsuarios = async function(){
 
     try {
@@ -16,7 +18,38 @@ const selectAllUsuarios = async function(){
     }
 }
 
+const selectByIdUsuarios = async function(id){
+
+    try {
+
+         let sql = `SELECT * FROM tbl_usuario WHERE id = ${id}`
+         rsUsuario = await prisma.$queryRawUnsafe(sql)
+
+         return rsUsuario
+    } catch (error) {
+         return false
+    }
+}
+
+// DELETE DE USUARIOS
+const deleteUsuario = async function(id){
+
+    let idUsuario = parseInt(id)
+
+    try {
+        
+        let sql = `DELETE FROM tbl_usuario WHERE id = ${idUsuario}`
+        let rsUsuario = await prisma.$queryRawUnsafe(sql)
+        return rsUsuario
+    } catch (error) {
+        return false
+    }
+}
+
+
 
 module.exports = {
-    selectAllUsuarios
+    selectAllUsuarios,
+    selectByIdUsuarios,
+    deleteUsuario,
 }

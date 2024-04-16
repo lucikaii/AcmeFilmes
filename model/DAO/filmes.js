@@ -22,7 +22,7 @@ const insertFilme = async function(dadosFilme){
 
     if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == undefined || dadosFilme.data_relancamento == ''){
 
-        sql = `INSERT INTO tbl_filme (nome, sinopse, duracao, data_lancamento, data_relancamento, foto_capa, valor_unitario) VALUES
+        sql = `INSERT INTO tbl_filme (nome, sinopse, duracao, data_lancamento, data_relancamento, foto_capa, valor_unitario, classificacao) VALUES
                (
                 '${dadosFilme.nome}',
                 '${dadosFilme.sinopse}',
@@ -38,7 +38,7 @@ const insertFilme = async function(dadosFilme){
 
     } else{
 
-        sql = `INSERT INTO tbl_filme (nome, sinopse, duracao, data_lancamento, data_relancamento, foto_capa, valor_unitario) VALUES
+        sql = `INSERT INTO tbl_filme (nome, sinopse, duracao, data_lancamento, data_relancamento, foto_capa, valor_unitario, classificacao) VALUES
                (
                 '${dadosFilme.nome}',
                 '${dadosFilme.sinopse}',
@@ -76,25 +76,22 @@ const updateFilme = async function(){
 }
 
 
-// Function para deletar um filme do banco de dados
+// DELETE USUARIOS
 const deleteFilme = async function(id){
 
-    let idFilme = id
+    let idFilme = parseInt(id)
 
     try {
 
         let sql = `DELETE FROM tbl_filme WHERE id = ${idFilme}`
-
         let rsFilme = await prisma.$queryRawUnsafe(sql)
         return rsFilme
-
     } catch (error) {
         return false
     }
 }
 
-
-// Function para selecionar todos os filmes do banco de dados
+// GET DOS FILMES
 const selectAllFilmes = async function(){
 
    try {
@@ -111,8 +108,6 @@ const selectAllFilmes = async function(){
     
 }
 
-
-// Functions para filtrar um filme do banco de dados
 const selectByIdFilmes = async function(id){    
     
     try {

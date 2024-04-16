@@ -81,8 +81,7 @@ const setAtualizarFilme = async function(){
 // Function para excluir um filme
 const setExcluirFilme = async function(id){
 
-    let idFilme = id
-    let ids = filmesDAO.selectAllFilmes()
+    let idFilme = parseInt(id)
 
     try {
           
@@ -98,8 +97,7 @@ const setExcluirFilme = async function(id){
     }
 }
 
-
-// Function para listar todos os filmes existentes no banco de dados
+// GET FILMES
 const getListarFilmes = async function(){
 
     let jsonFilmes = {}
@@ -122,8 +120,6 @@ const getListarFilmes = async function(){
     }
 }
 
-
-// Function para retornar o filtro de um filme pelo id
 const getBuscarFilme = async function(id){
 
     let idFilme = parseInt(id)
