@@ -26,7 +26,22 @@ const selectAllClassificacoes = async function(){
     }
 }
 
+const selectByIdClassificacoes = async function(id){
+
+    try {
+
+        let sql = `SELECT * FROM tbl_classificacao WHERE id = ${id}`
+        let rsClassificacoes = await prisma.$queryRawUnsafe(sql)
+
+        return rsClassificacoes
+        
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
 
-    selectAllClassificacoes
+    selectAllClassificacoes,
+    selectByIdClassificacoes
 }

@@ -30,6 +30,36 @@ const getListarClassificacoes = async function(){
     }
 }
 
+const getBuscarClassificacao = async function(id){
+
+    let idClassificacao = parseInt(id)
+    let jsonClassificacao = {}
+
+    if(idClassificacao == '' || idClassificacao == undefined || isNaN(idClassificacao)){
+
+        return config.ERROR_INVALID_ID
+    } else{
+
+        let dadosClassificacao = await classificacoesDAO.selectByIdClassificacoes(idClassificacao)
+
+        if (dadosClassificacao) {
+            
+            if (dadosClassificacao.length > 0) {
+                
+                jsonClassificacao.classificacao = dadosClassificacao
+                jsonClassificacao.status_code = 200
+
+                return jsonClassificacao
+            } else {
+                return config.ERROR_NOT_FOUND
+            }
+        } else {
+            return config.ERROR_INTERNAL_SERVER_DB
+        }
+    }
+}
+
 module.exports = {
-    getListarClassificacoes
+    getListarClassificacoes,
+    getBuscarClassificacao
 }

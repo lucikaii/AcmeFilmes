@@ -125,6 +125,16 @@ app.get('/v2/acmefilmes/classificacoes', cors(), async function(request, respons
     }
 })
 
+app.get('/v2/acmefilmes/classificacao/:id', cors(), async function(request, response, next){
+
+    let idClassificacao = request.params.id
+
+    let dadosClassificacao = await classificacoesController.getBuscarClassificacao(idClassificacao)
+
+    response.status(dadosClassificacao.status_code)
+    response.json(dadosClassificacao)
+})
+
 
 
 app.listen(8080, function(){
