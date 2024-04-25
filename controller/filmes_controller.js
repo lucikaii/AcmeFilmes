@@ -7,6 +7,7 @@
  * */
 
 const filmesDAO = require('../model/DAO/filmes.js')
+const classificacoesDAO = require('../model/DAO/classificacao.js')
 const config = require('../modulo/config.js')
 
 // Function para inserir um novo Filme
