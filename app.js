@@ -6,6 +6,7 @@
 /********************************** IMPORT DOS ARQUIVOS INTERNOS DO PROJETO ****************************************************** */
 const filmesController = require('./controller/filmes_controller.js')
 const usuariosController = require('./controller/usuarios_controller.js')
+const classificacoesController = require('./controller/classificacoes_controller.js')
 
 /********************************************************************************************************************************* */
 
@@ -107,6 +108,21 @@ app.get('/v2/acmefilmes/usuario/:id', cors(), async function (resquest, response
 
     response.status(dadosUsuario.status_code)
     response.json(dadosUsuario)
+})
+
+
+//RETORNO DOS DADOS CLASSIFICAÇÃO
+app.get('/v2/acmefilmes/classificacoes', cors(), async function(request, response, next){
+
+    let dadosClassificacoes = await classificacoesController.getListarClassificacoes()
+
+    if(dadosClassificacoes){
+        response.json(dadosClassificacoes)
+        response.status = 200
+    } else{
+        response.json({message: 'Nada Encontrado'})
+        response.status(404)
+    }
 })
 
 
