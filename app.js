@@ -36,6 +36,7 @@ const jsonBodyParser = bodyParser.json()
 app.get('/v1/acmefilmes/filmes', cors(), async function(request, response, next){
 
     let dadosFilmes = await filmesController.getListarFilmes()
+    dadosFilmes.filmes.classificacao = await classificacoesController.getBuscarClassificacao(dadosFilmes.filmes.id)
     
     if(dadosFilmes){
         response.json(dadosFilmes)

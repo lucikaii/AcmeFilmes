@@ -104,14 +104,12 @@ const getListarFilmes = async function(){
     let jsonFilmes = {}
 
     let dadosFilmes = await filmesDAO.selectAllFilmes()
-    let dadosClassificacao = await classificacoesDAO.selectByIdClassificacoes()
 
-    if(dadosFilmes, dadosClassificacao){
+    if(dadosFilmes){
 
-        if(dadosFilmes.length > 0 && dadosClassificacao > 0){
+        if(dadosFilmes.length > 0){
 
             jsonFilmes.filmes = dadosFilmes
-            jsonFilmes.filmes.classificacao = dadosClassificacao
             jsonFilmes.quantidade = dadosFilmes.length
             jsonFilmes.status_code = 200
             return jsonFilmes
