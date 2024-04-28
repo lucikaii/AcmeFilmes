@@ -71,8 +71,23 @@ const insertFilme = async function(dadosFilme){
 
 
 // Function para atualizar um filme no banco de dados
-const updateFilme = async function(){
+const updateFilme = async function(dadosFilme){
 
+    try {
+
+        let sql 
+
+        if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == undefined || dadosFilme.data_relancamento == ''){
+
+            sql = ``
+
+        }else{
+
+        }
+        
+    } catch (error) {
+        return false
+    }
 }
 
 

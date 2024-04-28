@@ -20,9 +20,11 @@ const selectAllUsuarios = async function(){
 
 const selectByIdUsuarios = async function(id){
 
+    let idUsuario = parseInt(id)
+
     try {
 
-         let sql = `SELECT * FROM tbl_usuario WHERE id = ${id}`
+         let sql = `SELECT * FROM tbl_usuario WHERE id = ${idUsuario}`
          rsUsuario = await prisma.$queryRawUnsafe(sql)
 
          return rsUsuario
