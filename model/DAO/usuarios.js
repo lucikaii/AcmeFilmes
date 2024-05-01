@@ -57,9 +57,7 @@ const insertNovoUsuario = async function(dadosUsuario){
         let sql
         let idSQL
 
-        if(dadosUsuario.foto_perfil = null || dadosUsuario.foto_perfil == undefined || dadosUsuario == ''){
-
-            sql = `INSERT INTO tbl_usuario (nome, email, senha, foto_perfil) VALUES
+        sql = `INSERT INTO tbl_usuario (nome, email, senha, foto_perfil) VALUES
             (
                 '${dadosUsuario.nome}',
                 '${dadosUsuario.email}',
@@ -67,19 +65,8 @@ const insertNovoUsuario = async function(dadosUsuario){
                 null
             )`
     
-            idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_usuario ORDER BY id DESC LIMIT 1`
-        } else {
-    
-            sql = `INSERT INTO tbl_usuario (nome, email, senha, foto_perfil) VALUES
-            (
-                '${dadosUsuario.nome}',
-                '${dadosUsuario.email}',
-                '${dadosUsuario.senha}',
-                '${dadosUsuario.foto_perfil}'
-            )`
-    
-            idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_usuario ORDER BY id DESC LIMIT 1`
-        }
+        idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_usuario ORDER BY id DESC LIMIT 1`
+
     
         let result = prisma.$executeRawUnsafe(sql)
         let idResult = await prisma.$queryRawUnsafe(idSQL)
@@ -103,4 +90,5 @@ module.exports = {
     selectAllUsuarios,
     selectByIdUsuarios,
     deleteUsuario,
+    insertNovoUsuario
 }

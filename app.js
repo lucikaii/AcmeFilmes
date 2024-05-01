@@ -110,6 +110,15 @@ app.get('/v2/acmefilmes/usuario/:id', cors(), async function (resquest, response
     response.json(dadosUsuario)
 })
 
+app.post('/v2/acmefilmes/usuario', cors(), jsonBodyParser, async function(request, response, next){
+
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+    let resultDados = await usuariosController.setInserirNovoUsuario(dadosBody, contentType)
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
 
 //RETORNO DOS DADOS CLASSIFICAÇÃO
 app.get('/v2/acmefilmes/classificacoes', cors(), async function(request, response, next){

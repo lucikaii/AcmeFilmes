@@ -157,7 +157,7 @@ const getBuscarFilmePorNome = async function(name){
     let nomeFilme = name 
     let filmesJson = {}
 
-    if (nomeFilme =='' || nomeFilme == undefined ){
+    if (nomeFilme =='' || nomeFilme == undefined || nomeFilme == null){
 
         return config.ERROR_INVALID_NAME
     } else{

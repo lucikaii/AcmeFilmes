@@ -79,7 +79,11 @@ const updateFilme = async function(dadosFilme){
 
         if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == undefined || dadosFilme.data_relancamento == ''){
 
-            sql = ``
+            sql = `UPDATE tbl_filme SET
+                   nome = '${dadosFilme.nome}'
+                   sinopse = ${dadosFilme.sinopse},
+                   duracao = ${dadosFilme.duracao},
+                   `
 
         }else{
 
