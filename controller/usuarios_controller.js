@@ -98,6 +98,8 @@ const setInserirNovoUsuario = async function(dadosUsuario, contentType){
                     jsonNovoUsuario.usuario = dadosUsuario
                     jsonNovoUsuario.id = dadosUsuario.id
                     return jsonNovoUsuario
+                } else{
+                    return config.ERROR_INTERNAL_SERVER_DB
                 }
                }
 
