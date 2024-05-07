@@ -7,6 +7,7 @@
 const filmesController = require('./controller/filmes_controller.js')
 const usuariosController = require('./controller/usuarios_controller.js')
 const classificacoesController = require('./controller/classificacoes_controller.js')
+const generosController = require('./controller/generos_controller.js')
 
 /********************************************************************************************************************************* */
 
@@ -142,6 +143,20 @@ app.get('/v2/acmefilmes/classificacao/:id', cors(), async function(request, resp
 
     response.status(dadosClassificacao.status_code)
     response.json(dadosClassificacao)
+})
+
+// RETORNO DOS DADOS DE GENERO
+app.get('/v2/acmefilmes/generos', cors(), async function(request, response, next){
+
+    let dadosGeneros = await generosController.getListarGeneros()
+
+    if(dadosGeneros){
+        response.json(dadosGeneros)
+        response.status = 200
+    } else{
+        response.json({message: 'Nada Encontrado'})
+        response.status(404)
+    }
 })
 
 
