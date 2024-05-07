@@ -8,6 +8,7 @@ const filmesController = require('./controller/filmes_controller.js')
 const usuariosController = require('./controller/usuarios_controller.js')
 const classificacoesController = require('./controller/classificacoes_controller.js')
 const generosController = require('./controller/generos_controller.js')
+const atoresController = require('./controller/atores_controller.js')
 
 /********************************************************************************************************************************* */
 
@@ -16,6 +17,7 @@ const express = require('express')
 const cors = require('cors')
 const bodyparser = require('body-parser')
 const bodyParser = require('body-parser')
+const res = require('express/lib/response.js')
 
 
 
@@ -152,6 +154,20 @@ app.get('/v2/acmefilmes/generos', cors(), async function(request, response, next
 
     if(dadosGeneros){
         response.json(dadosGeneros)
+        response.status = 200
+    } else{
+        response.json({message: 'Nada Encontrado'})
+        response.status(404)
+    }
+})
+
+// RETORNO DOS DADOS DE ATOR
+
+app.get('/v2/acmefilmes/atores', cors(), async function(request, response, next){
+
+    let dadosAtores = await atoresController.getListarAtores()
+    if(dadosAtores){
+        response.json(dadosAtores)
         response.status = 200
     } else{
         response.json({message: 'Nada Encontrado'})
