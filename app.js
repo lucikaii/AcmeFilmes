@@ -17,6 +17,7 @@ const express = require('express')
 const cors = require('cors')
 // const bodyparser = require('body-parser')
 const bodyParser = require('body-parser')
+const res = require('express/lib/response.js')
 // const res = require('express/lib/response.js')
 
 
@@ -55,8 +56,13 @@ app.get('/v1/acmefilmes/filme/:id', cors(), async function(request, response, ne
 
     let dadosFilme = await filmesController.getBuscarFilme(idFilme)
 
-    response.status(dadosFilme.status_code)
-    response.json(dadosFilme)
+    if(dadosFilme){
+        response.status(dadosFilme.status_code)
+        response.json(dadosFilme)
+    } else{
+        response.json({message: 'Nada Encontrado'})
+        response.status(404)
+    }
 
 })
 
@@ -67,6 +73,23 @@ app.get('/v1/acmefilmes/filtro/filme', cors(), async function(request, response,
 
     response.status(dadosFilmeNome.status_code)
     response.json(dadosFilmeNome)
+})
+
+app.get('/v2/acmefilmes/filmes/classificacao/:id', cors(), async function(resquest, response, next){
+
+    let idClassificacao = resquest.params.id
+
+    let dadosFilmes = await filmesController.getBuscarFilmePorClassificacao(idClassificacao)
+
+    if(dadosFilmes){
+        response.json(dadosFilmes)
+        response.status = 200
+    } else{
+        response.json({message: 'Nada Encontrado'})
+        response.status(404)
+    }
+
+    
 })
 
 app.post('/v2/acmefilmes/filme', cors(), jsonBodyParser, async function(request, response, next){
@@ -88,6 +111,7 @@ app.delete('/v2/acmefilmes/filme/:id', cors(), async function(request, response,
     response.status(200)
     response.json(dadosFilme)
 })
+
 
 // RETORNO DOS DADOS DOS USUARIOS
 app.get('/v2/acmefilmes/usuarios', cors(), async function(request, response, next){

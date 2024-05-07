@@ -183,6 +183,35 @@ const getBuscarFilmePorNome = async function(name){
     }
 }
 
+const getBuscarFilmePorClassificacao = async function(id){
+
+    let idClassificacao = parseInt(id)
+    let jsonFilmes = {}
+
+    if(idClassificacao == '' || idClassificacao == undefined || isNaN(idClassificacao)){
+        return config.ERROR_INVALID_ID
+    } else{
+
+        let dadosFilmes = await filmesDAO.selectByClassificacaoFilmes(idClassificacao)
+
+        if(dadosFilmes){
+
+            if(dadosFilmes.length > 0){
+
+                jsonFilmes.filmes = dadosFilmes
+                jsonFilmes.status_code = 200
+                return jsonFilmes
+
+            }else{
+                return config.ERROR_NOT_FOUND
+            }
+
+        }else{
+            return config.ERROR_INTERNAL_SERVER_DB
+        }
+    }
+}
+
 
 
 module.exports = {
@@ -192,7 +221,8 @@ module.exports = {
     setExcluirFilme,
     getListarFilmes,
     getBuscarFilme,
-    getBuscarFilmePorNome
+    getBuscarFilmePorNome,
+    getBuscarFilmePorClassificacao
 }
 
 
