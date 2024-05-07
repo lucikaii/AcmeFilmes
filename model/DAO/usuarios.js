@@ -54,9 +54,11 @@ const insertNovoUsuario = async function(dadosUsuario){
 
     try {
 
+        let sql
+
         if(dadosUsuario.adm == 0){
 
-            let sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
+            sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
             (
                 '${dadosUsuario.nome}',
                 '${dadosUsuario.email}',
@@ -65,7 +67,7 @@ const insertNovoUsuario = async function(dadosUsuario){
             )`
         } else if(dadosUsuario.adm == 1){
 
-            let sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
+             sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
             (
                 '${dadosUsuario.nome}',
                 '${dadosUsuario.email}',
