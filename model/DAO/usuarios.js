@@ -54,13 +54,25 @@ const insertNovoUsuario = async function(dadosUsuario){
 
     try {
 
-        let sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
+        if(dadosUsuario.adm == 0){
+
+            let sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
             (
                 '${dadosUsuario.nome}',
                 '${dadosUsuario.email}',
                 '${dadosUsuario.senha}',
-                ${dadosUsuario.adm}
+                0
             )`
+        } else if(dadosUsuario.adm == 1){
+
+            let sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
+            (
+                '${dadosUsuario.nome}',
+                '${dadosUsuario.email}',
+                '${dadosUsuario.senha}',
+                1
+            )`
+        }
     
         let idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_usuario ORDER BY id DESC LIMIT 1`
 
