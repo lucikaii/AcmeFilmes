@@ -165,7 +165,7 @@ const selectByNameFilmes = async function(name){
     }
 }
 
-const selectByClassificacaoFilmes = async function(){
+const selectByClassificacaoFilmes = async function(idClassificacao){
 
     try {
 
