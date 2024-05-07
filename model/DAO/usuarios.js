@@ -54,10 +54,7 @@ const insertNovoUsuario = async function(dadosUsuario){
 
     try {
 
-        let sql
-        let idSQL
-
-        sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
+        let sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
             (
                 '${dadosUsuario.nome}',
                 '${dadosUsuario.email}',
@@ -65,7 +62,7 @@ const insertNovoUsuario = async function(dadosUsuario){
                 ${dadosUsuario.adm}
             )`
     
-        idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_usuario ORDER BY id DESC LIMIT 1`
+        let idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_usuario ORDER BY id DESC LIMIT 1`
 
     
         let result = prisma.$executeRawUnsafe(sql)

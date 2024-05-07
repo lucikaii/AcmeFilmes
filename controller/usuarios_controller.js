@@ -82,7 +82,8 @@ const setInserirNovoUsuario = async function(dadosUsuario, contentType){
 
             if(dadosUsuario.nome =='' || dadosUsuario.nome == undefined || dadosUsuario.nome == null || dadosUsuario.nome.length > 80 ||
                dadosUsuario.email =='' || dadosUsuario.email == undefined || dadosUsuario.email == null || dadosUsuario.email.length > 100 ||
-               dadosUsuario.senha =='' || dadosUsuario.senha == undefined || dadosUsuario.senha == null || dadosUsuario.senha.length > 15){
+               dadosUsuario.senha =='' || dadosUsuario.senha == undefined || dadosUsuario.senha == null || dadosUsuario.senha.length > 15 ||
+               dadosUsuario.adm =='' || dadosUsuario.adm == undefined || dadosUsuario.adm == null){
                 return config.ERROR_REQUIRED_FIELDS
                } else{
                 statusValidate = true
