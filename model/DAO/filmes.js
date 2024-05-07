@@ -71,7 +71,9 @@ const insertFilme = async function(dadosFilme){
 
 
 // Function para atualizar um filme no banco de dados
-const updateFilme = async function(dadosFilme){
+const updateFilme = async function(dadosFilme, id){
+
+    let idFilme = parseInt(id)
 
     try {
 
@@ -81,8 +83,13 @@ const updateFilme = async function(dadosFilme){
 
             sql = `UPDATE tbl_filme SET
                    nome = '${dadosFilme.nome}'
-                   sinopse = ${dadosFilme.sinopse},
-                   duracao = ${dadosFilme.duracao},
+                   sinopse = '${dadosFilme.sinopse}',
+                   duracao = '${dadosFilme.duracao}',
+                   data_lancamento = '${dadosFilme.data_lancamento}',
+                   valor_unitario = '${dadosFilme.valor_unitario}',
+                   classificacao = ${dadosFilme.classificacao},
+                   foto_capa = '${dadosFilme.foto_capa}'
+                   WHERE id = ${idFilme}
                    `
 
         }else{

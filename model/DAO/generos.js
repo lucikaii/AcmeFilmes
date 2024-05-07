@@ -17,6 +17,7 @@ const selectAllGeneros = async function(){
     }
 }
 
+
 module.exports = {
     selectAllGeneros
 }

@@ -57,11 +57,12 @@ const insertNovoUsuario = async function(dadosUsuario){
         let sql
         let idSQL
 
-        sql = `INSERT INTO tbl_usuario (nome, email, senha) VALUES
+        sql = `INSERT INTO tbl_usuario (nome, email, senha, adm) VALUES
             (
                 '${dadosUsuario.nome}',
                 '${dadosUsuario.email}',
-                '${dadosUsuario.senha}'
+                '${dadosUsuario.senha}',
+                ${dadosUsuario.adm}
             )`
     
         idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_usuario ORDER BY id DESC LIMIT 1`
