@@ -72,7 +72,7 @@ const setExcluirUsuario = async function(id){
 
 // POST DE USUARIOS
 const setInserirNovoUsuario = async function(dadosUsuario, contentType){
-
+    console.log(dadosUsuario)
     try {
 
         if (String(contentType).toLowerCase() == 'application/json') {

@@ -15,9 +15,9 @@ const atoresController = require('./controller/atores_controller.js')
 
 const express = require('express')
 const cors = require('cors')
-const bodyparser = require('body-parser')
+// const bodyparser = require('body-parser')
 const bodyParser = require('body-parser')
-const res = require('express/lib/response.js')
+// const res = require('express/lib/response.js')
 
 
 
@@ -117,6 +117,8 @@ app.post('/v2/acmefilmes/usuario', cors(), jsonBodyParser, async function(reques
 
     let contentType = request.headers['content-type']
     let dadosBody = request.body
+
+    console.log(dadosBody)
     let resultDados = await usuariosController.setInserirNovoUsuario(dadosBody, contentType)
     response.status(resultDados.status_code)
     response.json(resultDados)

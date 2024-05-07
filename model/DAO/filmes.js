@@ -165,6 +165,19 @@ const selectByNameFilmes = async function(name){
     }
 }
 
+const selectByClassificacaoFilmes = async function(){
+
+    try {
+
+        let sql = `SELECT * FROM tbl_filme INNER JOIN tbl_classificacao ON tbl_classificacao.id = tbl_filme.classificacao WHERE tbl_classificacao.id = ${idClassificacao}`
+        let rsFilmes = await prisma.$queryRawUnsafe(sql)
+
+        return rsFilmes
+        
+    } catch (error) {
+        return false
+    }
+}
 
 
 module.exports = {
@@ -174,5 +187,6 @@ module.exports = {
     deleteFilme,
     selectAllFilmes,
     selectByNameFilmes,
-    selectByIdFilmes
+    selectByIdFilmes,
+    selectByClassificacaoFilmes
 }

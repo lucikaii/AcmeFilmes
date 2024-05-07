@@ -97,6 +97,8 @@ const insertNovoUsuario = async function(dadosUsuario){
 
 
 
+
+
 module.exports = {
     selectAllUsuarios,
     selectByIdUsuarios,
