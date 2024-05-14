@@ -17,7 +17,20 @@ const selectAllGeneros = async function(){
     }
 }
 
+const selectByIdGenero = async function(idGenero){
+
+    try {
+        
+        let sql = `SELECT * FROM tbl_genero WHERE id = ${idGenero}`
+        let rsGenero = await prisma.$queryRawUnsafe(sql)
+        return rsGenero
+    } catch (error) {
+        return false
+    }
+}
+
 
 module.exports = {
-    selectAllGeneros
+    selectAllGeneros,
+    selectByIdGenero
 }

@@ -59,7 +59,54 @@ const getBuscarClassificacao = async function(id){
     }
 }
 
+const setInserirNovaClassificacao = async function(dadosClassificacao, contentType){
+
+    try {
+
+        if(String(contentType).toLowerCase() == 'application/json'){
+
+            let statusValidate = false
+            let jsonNovaClassificacao = {}
+
+            if(dadosClassificacao.sigla == '' || dadosClassificacao.sigla == undefined || dadosClassificacao.sigla == null || dadosClassificacao.sigla.length > 2 ||
+               dadosClassificacao.descricao == '' || dadosClassificacao.descricao == undefined || dadosClassificacao.descricao == null || dadosClassificacao.descricao.length > 150 ||
+               dadosClassificacao.icone == '' || dadosClassificacao.icone == undefined || dadosClassificacao.icone == null || dadosClassificacao.icone.length > 300){
+
+                return config.ERROR_REQUIRED_FIELDS
+               } else{
+                statusValidate = true
+               }
+
+               if(statusValidate){
+
+                let novaClassificacao = await classificacoesDAO.insertNovaClassificacao(dadosClassificacao)
+
+                if(novaClassificacao){
+                    console.log(novaClassificacao)
+                    jsonNovaClassificacao.status = config.SUCESS_CREATED_ITEM.status
+                    jsonNovaClassificacao.status_code = config.SUCESS_CREATED_ITEM.status_code
+                    jsonNovaClassificacao.message = config.SUCESS_CREATED_ITEM.message
+                    jsonNovaClassificacao.classificacao = dadosClassificacao
+                    jsonNovaClassificacao.id = dadosClassificacao.id
+                    return jsonNovaClassificacao
+                } else{
+                    return config.ERROR_INTERNAL_SERVER_DB
+                }
+               }
+
+        } else{
+            return config.ERROR_CONTENT_TYPE
+        }
+        
+    } catch (error) {
+        return config.ERROR_INTERNAL_SERVER
+    }
+}
+
+
+
 module.exports = {
     getListarClassificacoes,
-    getBuscarClassificacao
+    getBuscarClassificacao,
+    setInserirNovaClassificacao
 }

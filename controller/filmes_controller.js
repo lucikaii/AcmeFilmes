@@ -18,7 +18,7 @@ const setInserirNovoFilme = async function(dadosFilme, contentType){
     if (String(contentType).toLowerCase() == 'application/json'){
 
         let statusValidate = false
-    let jsonNovoFilme = {}
+        let jsonNovoFilme = {}
 
     if(dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome == null || dadosFilme.length > 80 ||
        dadosFilme.sinopse == '' || dadosFilme.sinopse == undefined || dadosFilme.sinopse == null || dadosFilme.sinopse.length > 65000 ||
@@ -47,7 +47,10 @@ const setInserirNovoFilme = async function(dadosFilme, contentType){
 
        if(statusValidate = true){
 
+
         let novoFilme = await filmesDAO.insertFilme(dadosFilme)
+        console.log(novoFilme)
+
 
         if(novoFilme){
 
@@ -183,16 +186,15 @@ const getBuscarFilmePorNome = async function(name){
     }
 }
 
-const getBuscarFilmePorClassificacao = async function(id){
+const getBuscarFilmePorClassificacao = async function(siglaClassificacao){
 
-    let idClassificacao = parseInt(id)
     let jsonFilmes = {}
 
-    if(idClassificacao == '' || idClassificacao == undefined || isNaN(idClassificacao)){
+    if(siglaClassificacao == '' || siglaClassificacao == undefined){
         return config.ERROR_INVALID_ID
     } else{
 
-        let dadosFilmes = await filmesDAO.selectByClassificacaoFilmes(idClassificacao)
+        let dadosFilmes = await filmesDAO.selectByClassificacaoFilmes(siglaClassificacao)
 
         if(dadosFilmes){
 

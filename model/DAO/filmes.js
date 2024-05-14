@@ -30,7 +30,8 @@ const insertFilme = async function(dadosFilme){
                  '${dadosFilme.data_lancamento}',
                   null,
                  '${dadosFilme.foto_capa}',
-                 '${dadosFilme.valor_unitario}'
+                 '${dadosFilme.valor_unitario}',
+                 ${dadosFilme.classificacao}
                )
                `
 
@@ -46,7 +47,8 @@ const insertFilme = async function(dadosFilme){
                  '${dadosFilme.data_lancamento}',
                  '${dadosFilme.data_relancamento}',
                  '${dadosFilme.foto_capa}',
-                 '${dadosFilme.valor_unitario}
+                 '${dadosFilme.valor_unitario}',
+                 ${dadosFilme.classificacao}
                )`
 
                idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_filme ORDER BY id DESC LIMIT 1`
@@ -124,7 +126,6 @@ const selectAllFilmes = async function(){
     
     let sql = 'SELECT * FROM tbl_filme'
     let rsFilmes = await prisma.$queryRawUnsafe(sql)
-
     return rsFilmes
 
    } catch (error) {
@@ -165,11 +166,11 @@ const selectByNameFilmes = async function(name){
     }
 }
 
-const selectByClassificacaoFilmes = async function(idClassificacao){
+const selectByClassificacaoFilmes = async function(siglaClassificacao){
 
     try {
 
-        let sql = `SELECT * FROM tbl_filme INNER JOIN tbl_classificacao ON tbl_classificacao.id = tbl_filme.classificacao WHERE tbl_classificacao.id = ${idClassificacao}`
+        let sql = `SELECT tbl_filme.id, nome, sinopse, duracao, data_lancamento, data_relancamento, valor_unitario, foto_capa FROM tbl_filme INNER JOIN tbl_classificacao ON tbl_classificacao.id = tbl_filme.classificacao WHERE tbl_classificacao.sigla = '${siglaClassificacao}'`
         let rsFilmes = await prisma.$queryRawUnsafe(sql)
 
         return rsFilmes

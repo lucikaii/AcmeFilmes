@@ -15,6 +15,18 @@ const selectAllAtores = async function(){
     }
 }
 
+const selectByIdAtor = async function(idAtor){
+
+    try {
+        let sql = `SELECT * FROM tbl_ator WHERE id = ${idAtor}`
+        let rsAtor = await prisma.$queryRawUnsafe(sql)
+        return rsAtor
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
-    selectAllAtores
+    selectAllAtores,
+    selectByIdAtor
 }

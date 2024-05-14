@@ -42,6 +42,7 @@ const getBuscarUsuario = async function(id){
 
                 usuarioJson.usuario = dadosUsuario
                 usuarioJson.status_code = 200
+                return usuarioJson
             } else {
                 return config.ERROR_NOT_FOUND
             }
@@ -72,7 +73,6 @@ const setExcluirUsuario = async function(id){
 
 // POST DE USUARIOS
 const setInserirNovoUsuario = async function(dadosUsuario, contentType){
-    console.log(dadosUsuario)
     try {
 
         if (String(contentType).toLowerCase() == 'application/json') {
@@ -82,15 +82,15 @@ const setInserirNovoUsuario = async function(dadosUsuario, contentType){
 
             if(dadosUsuario.nome =='' || dadosUsuario.nome == undefined || dadosUsuario.nome == null || dadosUsuario.nome.length > 80 ||
                dadosUsuario.email =='' || dadosUsuario.email == undefined || dadosUsuario.email == null || dadosUsuario.email.length > 100 ||
-               dadosUsuario.senha =='' || dadosUsuario.senha == undefined || dadosUsuario.senha == null || dadosUsuario.senha.length > 15 ||
-               dadosUsuario.adm ==''){
+               dadosUsuario.senha =='' || dadosUsuario.senha == undefined || dadosUsuario.senha == null || dadosUsuario.senha.length > 15){
                 return config.ERROR_REQUIRED_FIELDS
                } else{
                 statusValidate = true
                }
 
-               if(statusValidate = true){
+               if(statusValidate){
                 let novoUsuario = await usuariosDAO.insertNovoUsuario(dadosUsuario)
+                console.log(novoUsuario)
 
                 if(novoUsuario){
                     jsonNovoUsuario.status = config.SUCESS_CREATED_ITEM.status
@@ -99,6 +99,7 @@ const setInserirNovoUsuario = async function(dadosUsuario, contentType){
                     jsonNovoUsuario.usuario = dadosUsuario
                     jsonNovoUsuario.id = dadosUsuario.id
                     return jsonNovoUsuario
+                    
                 } else{
                     return config.ERROR_INTERNAL_SERVER_DB
                 }

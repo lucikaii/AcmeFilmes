@@ -75,11 +75,11 @@ app.get('/v1/acmefilmes/filtro/filme', cors(), async function(request, response,
     response.json(dadosFilmeNome)
 })
 
-app.get('/v2/acmefilmes/filmes/classificacao/:id', cors(), async function(resquest, response, next){
+app.get('/v2/acmefilmes/filmes/classificacao', cors(), async function(resquest, response, next){
 
-    let idClassificacao = resquest.params.id
+    let siglaClassificacao = resquest.query.sigla
 
-    let dadosFilmes = await filmesController.getBuscarFilmePorClassificacao(idClassificacao)
+    let dadosFilmes = await filmesController.getBuscarFilmePorClassificacao(siglaClassificacao)
 
     if(dadosFilmes){
         response.json(dadosFilmes)
@@ -133,8 +133,13 @@ app.get('/v2/acmefilmes/usuario/:id', cors(), async function (resquest, response
 
     let dadosUsuario = await usuariosController.getBuscarUsuario(idUsuario)
 
-    response.status(dadosUsuario.status_code)
-    response.json(dadosUsuario)
+    if(dadosUsuario){
+        response.json(dadosUsuario)
+        response.status = 200
+    } else{
+        response.json({message: 'Nada Encontrado'})
+        response.status(404)       
+    }
 })
 
 app.post('/v2/acmefilmes/usuario', cors(), jsonBodyParser, async function(request, response, next){
@@ -173,6 +178,16 @@ app.get('/v2/acmefilmes/classificacao/:id', cors(), async function(request, resp
     response.json(dadosClassificacao)
 })
 
+app.post('/v2/acmefilmes/classificacao', cors(), async function(request, response, next){
+
+    let contentType = request.headers['content-type']
+    let dadosBody = request.body
+
+    let resultDados = await classificacoesController.setInserirNovaClassificacao(dadosBody, contentType)
+    response.status(resultDados.status_code)
+    response.json(resultDados)
+})
+
 // RETORNO DOS DADOS DE GENERO
 app.get('/v2/acmefilmes/generos', cors(), async function(request, response, next){
 
@@ -187,6 +202,15 @@ app.get('/v2/acmefilmes/generos', cors(), async function(request, response, next
     }
 })
 
+app.get('/v2/acmefilmes/genero/:id', cors(), async function(request, response, next){
+
+    let idGenero = request.params.id
+    let dadosGenero = await generosController.getBuscarGenero(idGenero)
+
+    response.status(dadosGenero.status_code)
+    response.json(dadosGenero)
+})
+
 // RETORNO DOS DADOS DE ATOR
 
 app.get('/v2/acmefilmes/atores', cors(), async function(request, response, next){
@@ -199,6 +223,16 @@ app.get('/v2/acmefilmes/atores', cors(), async function(request, response, next)
         response.json({message: 'Nada Encontrado'})
         response.status(404)
     }
+})
+
+app.get('/v2/acmefilmes/ator/:id', cors(), async function(request, response, next){
+
+    let idAtor = request.params.id
+
+    let dadosAtor = await atoresController.getBuscarAtor(idAtor)
+
+    response.status(dadosAtor.status_code)
+    response.json(dadosAtor)
 })
 
 

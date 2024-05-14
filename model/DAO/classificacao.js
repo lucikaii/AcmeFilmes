@@ -40,8 +40,38 @@ const selectByIdClassificacoes = async function(id){
     }
 }
 
+const insertNovaClassificacao = async function(dadosClassificacao){
+
+    try {
+
+        let sql
+        let idSQL
+
+        sql = `INSERT INTO tbl_classificacao (sigla, descricao, icone) VALUES 
+        (
+            '${dadosClassificacao.sigla}',
+            '${dadosClassificacao.descricao}',
+            '${dadosClassificacao.icone}'
+        )`
+
+        idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_classificacao ORDER BY id DESC`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+        let idResult = await prisma.$queryRawUnsafe(idSQL)
+
+        if (result && idResult) {
+            return result, idResult
+        } else {
+            return false
+        }
+    } catch (error) {
+        return false
+    }
+}
+
 module.exports = {
 
     selectAllClassificacoes,
-    selectByIdClassificacoes
+    selectByIdClassificacoes,
+    insertNovaClassificacao
 }

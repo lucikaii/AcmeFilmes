@@ -26,6 +26,31 @@ const getListarGeneros = async function(){
     }
 }
 
+const getBuscarGenero = async function(idGenero){
+
+    let jsonGenero = {}
+    let dadosGenero = await generosDAO.selectByIdGenero(idGenero)
+
+    if(dadosGenero){
+
+        if (dadosGenero.length > 0) {
+
+            jsonGenero.genero = dadosGenero
+            jsonGenero.quantidade = dadosGenero.length
+            jsonGenero.status_code = 200
+            return jsonGenero
+            
+        } else {
+            return config.ERROR_NOT_FOUND
+        }
+
+    } else{
+        return config.ERROR_INTERNAL_SERVER_DB
+    }
+
+}
+
 module.exports = {
-    getListarGeneros
+    getListarGeneros,
+    getBuscarGenero
 }
