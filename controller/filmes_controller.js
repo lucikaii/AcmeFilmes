@@ -78,8 +78,68 @@ const setInserirNovoFilme = async function(dadosFilme, contentType){
 
 
 // Function para atualizar um filme
-const setAtualizarFilme = async function(){
+const setAtualizarFilme = async function(dadosFilme, contentType, idFilme){
 
+    try {
+        
+        if (String(contentType).toLowerCase() == 'application/json') {
+            
+            let statusValidate = false
+            let jsonNovoFilme = {}
+
+            if(dadosFilme.nome == '' || dadosFilme.nome == undefined || dadosFilme.nome == null || dadosFilme.length > 80 ||
+       dadosFilme.sinopse == '' || dadosFilme.sinopse == undefined || dadosFilme.sinopse == null || dadosFilme.sinopse.length > 65000 ||
+       dadosFilme.duracao == '' || dadosFilme.duracao == undefined || dadosFilme.duracao == null || dadosFilme.duracao.length > 8 ||
+       dadosFilme.data_lancamento == '' || dadosFilme.data_lancamento == undefined || dadosFilme.data_lancamento == null || dadosFilme.data_lancamento.length != 10 ||
+       dadosFilme.foto_capa == '' || dadosFilme.foto_capa == undefined || dadosFilme.foto_capa == null || dadosFilme.foto_capa.length > 300 ||
+       dadosFilme.classificacao == '' || dadosFilme.classificacao == undefined || dadosFilme.classificacao == null || isNaN(dadosFilme.classificacao) ||
+       dadosFilme.valor_unitario.length > 8 || isNaN(dadosFilme.valor_unitario)
+       ){
+
+        return config.ERROR_REQUIRED_FIELDS
+       } else{
+
+        if(dadosFilme.data_relancamento != '' && dadosFilme.data_relancamento != null && dadosFilme.data_relancamento != undefined){
+
+            if(dadosFilme.data_relancamento.length != 10){
+                return config.ERROR_REQUIRED_FIELDS
+            } else{
+
+                statusValidate = true
+            }
+        } else {
+             statusValidate = true
+        }
+       }
+
+       if(statusValidate){
+
+        let novoFilme = await filmesDAO.updateFilme(dadosFilme, idFilme)
+        console.log(novoFilme)
+
+
+        if(novoFilme){
+
+            jsonNovoFilme.status = config.SUCCESS_UPDATED_ITEM.status
+            jsonNovoFilme.status_code = config.SUCCESS_UPDATED_ITEM.status_code
+            jsonNovoFilme.message = config.SUCCESS_UPDATED_ITEM.message
+            jsonNovoFilme.filme = dadosFilme
+            jsonNovoFilme.id = dadosFilme.id
+            return jsonNovoFilme
+        } else {
+
+            return config.ERROR_INTERNAL_SERVER_DB
+        }
+
+       }
+
+        } else {
+            return config.ERROR_CONTENT_TYPE
+        }
+
+    } catch (error) {
+        return false
+    }
 }
 
 // Function para excluir um filme

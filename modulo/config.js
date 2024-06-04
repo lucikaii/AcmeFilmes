@@ -18,6 +18,8 @@ const ERROR_INTERNAL_SERVER = {status: false, status_code: 500, message: 'Aconte
                                                             /** MENSAGEM DE SUCESSO */
 
 const SUCESS_CREATED_ITEM = {status: true, status_code: 201, message: 'Sucesso ao inserir dados'}
+const SUCCESS_DELETED_ITEM = {status: true, status_code: 200, message: "Sucesso ao excluir dados"}
+const SUCCESS_UPDATED_ITEM = {status: true, status_code: 200, message: "Sucesso ao atualizar dados"}
 
 
 
@@ -29,5 +31,7 @@ module.exports ={
     ERROR_REQUIRED_FIELDS,
     SUCESS_CREATED_ITEM,
     ERROR_CONTENT_TYPE,
-    ERROR_INTERNAL_SERVER
+    ERROR_INTERNAL_SERVER,
+    SUCCESS_DELETED_ITEM,
+    SUCCESS_UPDATED_ITEM
 }
