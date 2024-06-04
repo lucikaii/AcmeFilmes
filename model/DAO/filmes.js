@@ -94,8 +94,32 @@ const updateFilme = async function(dadosFilme, id){
                    WHERE id = ${idFilme}
                    `
 
+                   idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_filme ORDER BY id DESC LIMIT 1`
+
         }else{
 
+            sql = `UPDATE tbl_filme SET
+                   nome = '${dadosFilme.nome}'
+                   sinopse = '${dadosFilme.sinopse}',
+                   duracao = '${dadosFilme.duracao}',
+                   data_lancamento = '${dadosFilme.data_lancamento}',
+                   data_relancamento = '${dadosFilme.data_relancamento}',
+                   valor_unitario = '${dadosFilme.valor_unitario}',
+                   classificacao = ${dadosFilme.classificacao},
+                   foto_capa = '${dadosFilme.foto_capa}'
+                   WHERE id = ${idFilme}
+                   `
+
+                   idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_filme ORDER BY id DESC LIMIT 1`
+        }
+
+        let result = await prisma.$executeRawUnsafe(sql)
+        let idResult = await prisma.$queryRawUnsafe(idSQL)
+    
+        if(result && idResult){
+            return result, idResult
+        } else {
+            return false
         }
         
     } catch (error) {
