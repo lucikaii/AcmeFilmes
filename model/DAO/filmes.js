@@ -75,8 +75,6 @@ const insertFilme = async function(dadosFilme){
 // Function para atualizar um filme no banco de dados
 const updateFilme = async function(dadosFilme, id){
 
-    let idFilme = parseInt(id)
-
     try {
 
         let sql 
@@ -84,14 +82,14 @@ const updateFilme = async function(dadosFilme, id){
         if(dadosFilme.data_relancamento == null || dadosFilme.data_relancamento == undefined || dadosFilme.data_relancamento == ''){
 
             sql = `UPDATE tbl_filme SET
-                   nome = '${dadosFilme.nome}'
+                   nome = '${dadosFilme.nome}',
                    sinopse = '${dadosFilme.sinopse}',
                    duracao = '${dadosFilme.duracao}',
                    data_lancamento = '${dadosFilme.data_lancamento}',
                    valor_unitario = '${dadosFilme.valor_unitario}',
                    classificacao = ${dadosFilme.classificacao},
                    foto_capa = '${dadosFilme.foto_capa}'
-                   WHERE id = ${idFilme}
+                   WHERE id = ${id}
                    `
 
                    idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_filme ORDER BY id DESC LIMIT 1`
@@ -99,7 +97,7 @@ const updateFilme = async function(dadosFilme, id){
         }else{
 
             sql = `UPDATE tbl_filme SET
-                   nome = '${dadosFilme.nome}'
+                   nome = '${dadosFilme.nome}',
                    sinopse = '${dadosFilme.sinopse}',
                    duracao = '${dadosFilme.duracao}',
                    data_lancamento = '${dadosFilme.data_lancamento}',
@@ -107,7 +105,7 @@ const updateFilme = async function(dadosFilme, id){
                    valor_unitario = '${dadosFilme.valor_unitario}',
                    classificacao = ${dadosFilme.classificacao},
                    foto_capa = '${dadosFilme.foto_capa}'
-                   WHERE id = ${idFilme}
+                   WHERE id = ${id}
                    `
 
                    idSQL = `SELECT cast(id AS DECIMAL) FROM tbl_filme ORDER BY id DESC LIMIT 1`
